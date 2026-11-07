@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10131b">
+  <meta name="description" content="Corretor BR: revise textos em português brasileiro.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Corretor BR</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0d1017;--panel:#151a24;--panel2:#1b2230;--line:#293244;--text:#f1f4fa;--muted:#9aa6b8;--blue:#6da8ff;--blue2:#3478e5;--green:#65d6a2;--red:#ff8585;--radius:20px}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b2c49 0,transparent 48%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+    .app{max-width:760px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top)) 17px calc(28px + env(safe-area-inset-bottom))}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#7ab5ff,#3978e8);display:grid;place-items:center;color:#071326;font-weight:900;font-size:21px;box-shadow:0 8px 24px #3478e544}.brand h1{font-size:19px;line-height:1.1;margin:0;letter-spacing:-.4px}.brand small{display:block;color:var(--muted);font-size:12px;margin-top:4px}.icon-btn{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:13px;padding:10px 12px;font-size:13px}
+    .intro{margin:0 0 19px}.eyebrow{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.intro h2{font-size:27px;line-height:1.15;letter-spacing:-.8px;margin:7px 0}.intro p{color:var(--muted);margin:0;font-size:14px}
+    .editor,.result{background:linear-gradient(180deg,#171e2a,#131923);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 35px #0002}.section-head{padding:15px 16px 10px;display:flex;justify-content:space-between;align-items:center}.section-head strong{font-size:14px}.counter{font-size:12px;color:var(--muted)}textarea{display:block;width:100%;min-height:210px;resize:vertical;border:0;outline:0;background:transparent;color:var(--text);padding:8px 16px 16px;font:16px/1.65 system-ui,sans-serif}textarea::placeholder{color:#657187}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);flex-wrap:wrap}.subtle{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:13px;padding:10px 13px;background:var(--panel2);color:var(--text);font-weight:650;font-size:13px}.btn.primary{background:linear-gradient(135deg,#75b5ff,#4d8cf0);color:#081426;border:0;padding:12px 17px;box-shadow:0 7px 18px #3978e833}.btn:disabled{opacity:.55}.btn:active{transform:translateY(1px)}
+    .result{margin-top:16px;display:none}.result.show{display:block}.result-body{padding:4px 16px 16px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;min-height:70px}.result-foot{padding:12px 14px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}.status{margin-top:15px;display:flex;gap:9px;align-items:flex-start;padding:12px 14px;border:1px solid #293244;border-radius:15px;background:#121824;color:var(--muted);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);margin-top:5px;flex:none}.status strong{color:var(--text)}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:17px}.feature{padding:12px 10px;background:#121823;border:1px solid var(--line);border-radius:15px}.feature b{display:block;font-size:12px;margin-bottom:3px}.feature span{font-size:11px;color:var(--muted)}footer{text-align:center;color:#667286;font-size:11px;margin:22px 0 0}.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e9f2ff;color:#10213a;padding:10px 15px;border-radius:12px;font-size:13px;font-weight:700;transition:.2s;box-shadow:0 8px 30px #0005}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(min-width:600px){.app{padding-top:34px}.intro h2{font-size:32px}textarea{min-height:250px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header>
+    <div class="brand"><div class="logo">C</div><div><h1>Corretor BR</h1><small>Português brasileiro, com clareza.</small></div></div>
+    <button class="icon-btn" id="installBtn" hidden>＋ Instalar</button>
+  </header>
+  <section class="intro"><div class="eyebrow">Seu assistente de escrita</div><h2>Escreva. Revise. <span style="color:var(--blue)">Comunique melhor.</span></h2><p>Cole seu texto abaixo e faça uma revisão em português do Brasil.</p></section>
+  <section class="editor" aria-label="Editor de texto">
+    <div class="section-head"><strong>Seu texto</strong><span class="counter" id="counter">0 caracteres</span></div>
+    <textarea id="source" lang="pt-BR" spellcheck="true" placeholder="Digite ou cole aqui o texto que deseja corrigir..."></textarea>
+    <div class="toolbar"><span class="subtle">Dica: o teclado também pode sugerir correções.</span><div class="actions"><button class="btn" id="clearBtn">Limpar</button><button class="btn primary" id="checkBtn">✦ Corrigir texto</button></div></div>
+  </section>
+  <section class="result" id="result" aria-live="polite">
+    <div class="section-head"><strong>Texto revisado</strong><span class="counter" id="resultLabel">Resultado</span></div>
+    <div class="result-body" id="output"></div>
+    <div class="result-foot"><span class="subtle" id="resultNote">Revise o resultado antes de usar.</span><div class="actions"><button class="btn" id="replaceBtn">Usar no editor</button><button class="btn primary" id="copyBtn">Copiar texto</button></div></div>
+  </section>
+  <div class="status"><span class="dot"></span><div><strong id="modeTitle">Revisão online disponível</strong><br><span id="modeText">A revisão gramatical usa o serviço LanguageTool. O texto é enviado ao serviço para análise quando você toca em Corrigir texto.</span></div></div>
+  <div class="features"><div class="feature"><b>Ortografia</b><span>Grafia e acentuação</span></div><div class="feature"><b>Gramática</b><span>Concordância e pontuação</span></div><div class="feature"><b>Seu estilo</b><span>Você decide o que alterar</span></div></div>
+  <footer>Corretor BR · Protótipo inicial · Revise sugestões antes de compartilhar.</footer>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id), source=$('source');let revised='';let deferredPrompt=null;
+source.addEventListener('input',()=>$('counter').textContent=source.value.length+' caracteres');
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
+$('clearBtn').onclick=()=>{source.value='';$('counter').textContent='0 caracteres';$('result').classList.remove('show');source.focus()};
+$('checkBtn').onclick=async()=>{const text=source.value.trim();if(!text){toast('Digite ou cole um texto primeiro.');source.focus();return}if(text.length>20000){toast('Por enquanto, use textos de até 20 mil caracteres.');return}
+ const btn=$('checkBtn');btn.disabled=true;btn.textContent='Analisando…';$('result').classList.add('show');$('output').textContent='Analisando seu texto…';$('resultLabel').textContent='Em andamento';
+ try{const body=new URLSearchParams({text,language:'pt-BR',enabledOnly:'false'});const response=await fetch('https://api.languagetool.org/v2/check',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});if(!response.ok)throw new Error('Serviço indisponível');const data=await response.json();let corrected=text;const matches=[...data.matches].sort((a,b)=>b.offset-a.offset);let count=0;for(const m of matches){const replacement=m.replacements?.[0]?.value;if(replacement!==undefined){corrected=corrected.slice(0,m.offset)+replacement+corrected.slice(m.offset+m.length);count++}}
+ revised=corrected;$('output').textContent=corrected;$('resultLabel').textContent=count?count+' sugestão(ões) aplicada(s)':'Sem alterações';$('resultNote').textContent=data.matches.length?`${data.matches.length} ponto(s) identificado(s); foi aplicada a primeira sugestão disponível em cada caso.`:'Nenhum problema identificado pelo revisor.';toast(count?'Revisão concluída. Confira o resultado.':'Análise concluída.');
+ }catch(e){revised=text;$('output').textContent=text;$('resultLabel').textContent='Revisão indisponível';$('resultNote').textContent='Não foi possível acessar a revisão online. Confira sua conexão e tente novamente. A verificação do teclado continua disponível.';toast('Não foi possível conectar ao revisor.')}finally{btn.disabled=false;btn.textContent='✦ Corrigir texto'}};
+$('replaceBtn').onclick=()=>{if(revised){source.value=revised;$('counter').textContent=source.value.length+' caracteres';source.focus();toast('Texto atualizado no editor.')}};
+$('copyBtn').onclick=async()=>{if(!revised)return;try{await navigator.clipboard.writeText(revised);toast('Texto copiado!')}catch(e){toast('Seu navegador não permitiu copiar.')}};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false});$('installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true};
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
