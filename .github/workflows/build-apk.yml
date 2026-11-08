@@ -1,3 +1,4 @@
+
 name: Build Corretor BR Keyboard
 
 on:
@@ -30,7 +31,8 @@ jobs:
 
       - name: Extrair projeto Android
         run: |
-          CorretorBR-Keyboard.zip
+          mkdir -p /tmp/CorretorBRKeyboard
+          unzip -q CorretorBR-Keyboard.zip -d /tmp/CorretorBRKeyboard
           ls -la /tmp/CorretorBRKeyboard
 
       - name: Compilar APK
@@ -42,3 +44,4 @@ jobs:
         with:
           name: CorretorBR-Keyboard
           path: /tmp/CorretorBRKeyboard/app/build/outputs/apk/debug/app-debug.apk
+          
