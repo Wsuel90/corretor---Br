@@ -30,7 +30,7 @@ jobs:
 
       - name: Extrair projeto Android
         run: |
-          unzip -q CorretorBRKeyboard-inicial.zip -d /tmp
+          CorretorBR-Keyboard.zip
           ls -la /tmp/CorretorBRKeyboard
 
       - name: Compilar APK
